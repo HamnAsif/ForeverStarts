@@ -1,0 +1,76 @@
+
+<div class="bg-gray-100">
+  <header class="flex justify-between items-center px-6 py-4 border-b">
+    <div class="flex-auto space-x-0">
+      <span class="text-4xl font-serif font-bold text-red-300">FS</span>
+      <span class="text-xl font-serif text-gray-600">Forever Starts</span>
+    </div>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <nav class="space-x-10 text-black font-medium">
+    <div class="flex items-center space-x-10">
+      <a href="#" class="hover:text-red-300">Home</a>
+      <a href="#" class="hover:text-red-300">About</a>
+      <a href="#" class="hover:text-red-300">Services</a>
+      <a href="<%= new_user_session_path %>" class="hover:text-red-300">Login</a>
+      <a href="<%= couples_sign_up_path %>" class="hover:text-red-300">For Couples</a>
+      <a href="<%= vendors_sign_up_path %>" class="hover:text-red-300">For Vendors</a>
+
+    </div>
+    </nav>
+  </header>
+
+  
+    <div class="bg-white p-0">
+    <%= image_tag "landingpage.jpg", class: "h-auto max-w-full", alt: "Landing image" %>
+    </div>
+    
+    <div class="text-center py-12">
+    <h2 class="text-4xl font-serif font-bold text-black mb-12">
+      Why We Are Here
+    </h2>
+    </div>
+    
+    <div class="flex gap-20 w-full ">
+
+      <div class ="bg-white">
+        <%= image_tag "block1.jpg", class: "h-[600px] w-[420px]", alt: "block1" %>
+      </div>
+      <div class="bg-red-200 h-[600px] w-[496px]">
+        <span class="text-4xl font-serif font-bold text-bkack flex items-center justify-center pt-60">FS</span>
+        <span class = "text-2xl flex items-center justify-center pt-7 pb-7">DESTINATION WEDDING PLANNING</span>
+        <span class="text-lg text-center font-serif text-gray-600">Plan your dream wedding effortlessly with Forever Starts your all-in-one wedding planner. From budget tracking to vendor booking and guest lists, we help you stay organized, inspired, and stress-free every step of the way.</span>
+      </div>
+      <div class="bg-white">
+        <%= image_tag "block3.jpg", class: "h-[600px] w-[420px]", alt: "block1" %>
+      </div>
+
+    </div>
+
+    <div class="text-center py-10">
+    <h2 class="text-4xl font-serif font-bold text-black mb-10">
+      SERVICES
+    </h2>
+    <span>Planning a wedding can be overwhelming — but it doesn’t have to be. Our curated services cover everything you need for the perfect celebration, all in one place.</span>
+    </div>
+     <div class="flex gap-18 w-full ">
+
+      <div class ="bg-white">
+        <%= image_tag "block1.jpg", class: "h-[600px] w-[450px]", alt: "block1" %>
+      </div>
+      <div class="bg-red-200 h-[600px] w-[450px]">
+        <%= image_tag "catering1.jpg", class: "h-[600px] w-[450px]", alt: "block1" %>
+      </div>
+      <div class="bg-white">
+        <%= image_tag "block3.jpg", class: "h-[600px] w-[450px]", alt: "block1" %>
+      </div>
+
+    </div>
+</div>
+
