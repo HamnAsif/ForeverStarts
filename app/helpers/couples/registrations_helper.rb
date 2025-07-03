@@ -1,0 +1,2 @@
+module Couples::RegistrationsHelper
+end
