@@ -1,0 +1,42 @@
+<div class="bg-gray-100">
+  <header class="flex justify-between items-center px-6 py-4 border-b">
+    <div class="flex-auto space-x-0">
+      <span class="text-4xl font-serif font-bold text-red-300">FS</span>
+      <span class="text-xl font-serif text-gray-600">Forever Starts</span>
+    </div>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <nav class="space-x-10 text-black font-medium">
+    <div class="flex items-center space-x-10">
+      <a href="#" class="hover:text-red-300">Vendors</a>
+      <a href="#" class="hover:text-red-300">Budget Tracker</a>
+      <a href="#" class="hover:text-red-300">Inspiration</a>
+      <a href="#" class="hover:text-red-300">Guests</a>
+      <%= link_to "Add Event", new_couples_event_path, class: "hover:text-red-300" %>
+      <a href="#" class="hover:text-red-300">Invitation Cards</a> 
+      <a href="#" class="hover:text-red-300">Profile</a>   
+    </div>
+    </nav>
+  </header>
+  <% if user_signed_in? %>
+  <p>You are logged in as <%= current_user.email %>.</p>
+  <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+  <%end%>
+
+<div class = "gray-200">
+    <h2>Your Events</h2>
+
+    <% current_user.authenticatable.events.each do |event| %>
+    <p>
+        <strong><%= event.event_name %></strong> - <%= event.event_date %>
+    </p>
+    <% end %>
+</div>
+</div>
