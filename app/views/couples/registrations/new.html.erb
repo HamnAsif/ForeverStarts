@@ -6,28 +6,28 @@
     <%= form_with url: couples_sign_up_path, method: :post, local: true do |f| %>
       <div class="mb-4">
         <%= label_tag :email, "Email", class: "block font-medium mb-1" %>
-        <%= email_field_tag :email, nil, class: "border border-red-300 p-2 w-full hover:border-red-400" %>
+        <%= email_field_tag :email, nil, class: "border border-red-300 p-2 w-full rounded-sm focus:outline-none focus:border-red-400 focus:border-2" %>
       </div>
 
       <div class="mb-4">
         <%= label_tag :bride_name, "Bride Name", class: "block font-medium mb-1" %>
-        <%= text_field_tag :bride_name, nil, class: "border border-red-300 p-2 w-full hover:border-red-400" %>
+        <%= text_field_tag :bride_name, nil, class: "border border-red-300 p-2 w-full rounded-sm focus:outline-none focus:border-red-400 focus:border-2" %>
       </div>
       
 
       <div class="mb-4">
         <%= label_tag :groom_name, "Groom Name", class: "block font-medium mb-1" %>
-        <%= text_field_tag :groom_name, nil, class: "border border-red-300 p-2 rounded-sm w-full hover:border-red-400" %>
+        <%= text_field_tag :groom_name, nil, class: "border border-red-300 p-2  w-full rounded-sm focus:outline-none focus:border-red-400 focus:border-2" %>
       </div>
 
       <div class="mb-4">
         <%= label_tag :password, "Password", class: "block font-medium mb-1" %>
-        <%= password_field_tag :password, nil, class: "border border-red-300 p-2 rounded-sm w-full hover:border-red-400" %>
+        <%= password_field_tag :password, nil, class: "border border-red-300 p-2 w-full rounded-sm focus:outline-none focus:border-red-400 focus:border-2" %>
       </div>
 
       <div class="mb-4">
         <%= label_tag :password_confirmation, "Password confirmation", class: "block font-medium mb-1" %>
-        <%= password_field_tag :password_confirmation, nil, class: "border border-red-300 p-2 rounded-sm w-full hover:border-red-400" %>
+        <%= password_field_tag :password_confirmation, nil, class: "border border-red-300 p-2 w-full rounded-sm focus:outline-none focus:border-red-400 focus:border-2" %>
       </div>
 
       <div class= "flex justify-center">
