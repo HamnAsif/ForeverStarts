@@ -20,22 +20,21 @@
       <a href="#" class="hover:text-red-300">Inspiration</a>
       <a href="#" class="hover:text-red-300">Guests</a>
       <%= link_to "Add Event", new_couples_event_path, class: "hover:text-red-300" %>
-      <a href="#" class="hover:text-red-300">Invitation Cards</a> 
-      <a href="#" class="hover:text-red-300">Profile</a>   
+      <a href="#" class="hover:text-red-300">Invitation Cards</a>   
+      <a href="<%= edit_couples_profile_path %>" class="hover:text-red-300">Profile</a>
     </div>
     </nav>
   </header>
-  <% if user_signed_in? %>
-  <p>You are logged in as <%= current_user.email %>.</p>
-  <%= button_to "Logout", destroy_user_session_path, method: :delete %>
-  <%end%>
+  <div class="bg-white p-0">
+    <%= image_tag "dashboard.jpg", class: "h-auto max-w-full", alt: "Dashboard image" %>
+  </div>
 
 <div class = "gray-200">
-    <h2>Your Events</h2>
+    <h2>Upcoming Events</h2>
 
     <% current_user.authenticatable.events.each do |event| %>
     <p>
-        <strong><%= event.event_name %></strong> - <%= event.event_date %>
+        <strong><%= event.event_name %></strong>  <%= event.event_date %>
     </p>
     <% end %>
 </div>

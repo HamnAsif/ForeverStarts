@@ -1,0 +1,40 @@
+
+<div class="max-w-lg mx-auto mt-10">
+  <h2 class="text-2xl font-bold mb-6 text-center">Profile Settings</h2>
+
+  <%= form_with model: @couple, url: couples_profile_path, method: :patch, local: true do |f| %>
+    <div class="mb-4">
+      <%= f.label :bride_name, class: "block font-medium mb-1" %>
+      <%= f.text_field :bride_name, class: "border border-red-300 p-2 w-full rounded-sm" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :groom_name, class: "block font-medium mb-1" %>
+      <%= f.text_field :groom_name, class: "border border-red-300 p-2 w-full rounded-sm focus:border-red-500" %>
+    </div>
+
+    <div class="mb-4">
+      <%= label_tag :email, "Email", class: "block font-medium mb-1" %>
+      <%= email_field_tag "user[email]", current_user.email, class: "border border-red-300 p-2 w-full rounded-sm focus:border-red-500" %>
+    </div>
+
+    <div class="mb-4">
+      <%= label_tag :password, "New Password", class: "block font-medium mb-1" %>
+      <%= password_field_tag "user[password]", nil, class: "border border-red-300 p-2 w-full rounded-sm focus:border-red-500" %>
+    </div>
+
+    <div class="mb-4">
+      <%= label_tag :password_confirmation, "Confirm Password", class: "block font-medium mb-1" %>
+      <%= password_field_tag "user[password_confirmation]", nil, class: "border border-red-300 p-2 w-full rounded-sm focus:border-red-500" %>
+    </div>
+
+    <div class="text-center mt-6">
+      <%= f.submit "Save Changes", class: "bg-red-300 text-white py-2 px-4 rounded-xl hover:bg-red-400" %>
+    </div>
+  <% end %>
+  <% if user_signed_in? %>
+    <div class="text-center mt-6">
+      <%= button_to "Log out",destroy_user_session_path, method: :delete, class: "bg-red-300 text-white py-2 px-4 rounded-xl hover:bg-red-400" %>
+    </div>
+  <% end %>
+</div>
