@@ -1,5 +1,7 @@
 class Couples::RegistrationsController < ApplicationController
-  def new; end
+  skip_before_action :authenticate_user!
+  def new
+  end
 
   def create
     couple = Couple.new(bride_name: params[:bride_name], groom_name: params[:groom_name])

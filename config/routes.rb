@@ -9,11 +9,16 @@ Rails.application.routes.draw do
   namespace :couples do
     get 'sign_up', to: 'registrations#new'
     post 'sign_up', to: 'registrations#create'
+    get 'dashboard', to: 'dashboard#show'
+    resources :events, only: [:new, :create]
+    resource :profile, only: [:show, :edit, :update]
+
   end
 
   # Custom sign-up routes for vendors
   namespace :vendors do
     get 'sign_up', to: 'registrations#new'
     post 'sign_up', to: 'registrations#create'
+    get 'dashboard', to: 'dashboard#show'
   end
 end
