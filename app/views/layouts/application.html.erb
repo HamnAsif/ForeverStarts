@@ -16,14 +16,56 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <% if current_admin_user %>
+      <%= stylesheet_link_tag "active_admin", media: "all" %>
+    <% else %>
+      <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <% end %>
     <%= javascript_importmap_tags %>
+
   </head>
 
   <body>
-    <main class="container mx-auto mt-0 px-0 flex">
+    <main class="container flex flex-col mx-auto mt-0 px-0 flex">
+    <% unless (controller_name == "pages" && action_name == "home") || controller_path.start_with?("vendors/") || controller_path == "couples/registrations" || controller_path == "devise/sessions"%>
+
+      <header class="flex justify-between items-center px-6 py-4 border-b">
+        <div class="flex-auto space-x-0">
+          <span class="text-4xl font-serif font-bold text-red-300">FS</span>
+          <span class="text-xl font-serif text-gray-600">Forever Starts</span>
+        </div>
+    
+          <nav class="space-x-10 text-black font-medium">
+          <div class="flex flex-row justify-end-safe space-x-10">
+            <a href="<%= couples_findvendor_path %>" class="hover:text-red-300">Vendors</a>
+            <a href="<%= couples_budget_path%>" class="hover:text-red-300">Budget Tracker</a>
+            <a href="<%= couples_inspiration_path %>" class="hover:text-red-300">Inspiration</a>
+            <a href="<%= couples_guest_path %>" class="hover:text-red-300">Guests</a>
+            <%= link_to "Add Event", new_couples_event_path, class: "hover:text-red-300" %>
+            <a href="<%= couples_card_path %>" class="hover:text-red-300">Invitation Cards</a>   
+            <a href="<%= edit_couples_profile_path %>" class="hover:text-red-300">Profile</a>
+          </div>
+          </nav>
+      </header>
+      <% end %>
+      <% unless (controller_name == "pages" && action_name == "home") || controller_path.start_with?("couples/") || controller_path == "vendors/registrations" || controller_path == "devise/sessions" || controller_path == "vendors/details" %>
+
+      <header class="flex justify-between items-center px-6 py-4 border-b">
+        <div class="flex-auto space-x-0">
+          <span class="text-4xl font-serif font-bold text-red-300">FS</span>
+          <span class="text-xl font-serif text-gray-600">Forever Starts</span>
+        </div>
+    
+          <nav class="space-x-10 text-black font-medium">
+            <div class="flex flex-row justify-end-safe space-x-10">
+                <a href="#" class="hover:text-red-300">Notifications</a> 
+                <a href="<%= edit_vendors_profile_path %>" class="hover:text-red-300">Profile</a>           
+            </div>
+          </nav>
+      </header>
+      <% end %>
       <%= yield %>
     </main>
   </body>

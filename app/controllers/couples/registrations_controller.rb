@@ -14,7 +14,7 @@ class Couples::RegistrationsController < ApplicationController
       )
       if user.save
         sign_in(user)
-        redirect_to root_path, notice: "Signed up successfully as a Couple."
+        redirect_to couples_dashboard_path, notice: "Signed up successfully as a Couple."
       else
         couple.destroy
         render :new, alert: "User creation failed"

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     elsif resource.authenticatable_type == "Vendor"
       vendors_dashboard_path
     else 
-      root_path
+      super
     end
   end
   def after_sign_up_path_for(resource)

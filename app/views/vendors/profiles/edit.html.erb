@@ -1,0 +1,65 @@
+
+  <div class="bg-white p-8 rounded w-full max-w-md">
+  <h2 class="text-2xl font-bold mb-6 text-center">Profile Settings</h2>
+
+  <div class="flex flex-col items-center mb-6">
+  <div class="bg-gray-200 w-24 h-24 rounded-full flex items-center justify-center mb-2">
+     <img src="https://www.svgrepo.com/download/512697/profile-1341.svg" alt="Profile Icon" class="w-15 h-15">
+  </div>
+  <div class="text-red-300 underline decoration-red-500 hover:text-red-400 focus:text-red-500 cursor-pointer">
+    Change Profile Picture
+  </div>
+</div>
+
+  <%= form_with model: @vendor, url: vendors_profile_path, method: :patch, local: true do |f| %>
+    <div class="mb-4">
+      <%= f.label :username, class: "block font-medium mb-1" %>
+      <%= f.text_field :username, class: "border border-red-300 p-2 w-full rounded-sm" %>
+    </div>
+
+    <div class="mb-4">
+        <%= f.label :category, "Category", class: "block font-medium mb-1" %>
+        <%= f.select :category, options_for_select(Vendor::SERVICE_TYPES), { prompt: "Select a service" }, class: "border border-red-300 p-2 w-full rounded-sm hover:border-red-300 focus:outline-none focus:border-red-400 focus:border-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= label_tag :email, "Email", class: "block font-medium mb-1" %>
+      <%= email_field_tag "user[email]", current_user.email, class: "border border-red-300 p-2 w-full rounded-sm focus:border-red-500" %>
+    </div>
+    
+    <div>
+      <%= f.label :contact, "Contact Number", class: "block font-medium mb-1" %>
+      <%= f.text_field :contact,class: "w-full border border-red-400 rounded px-4 py-2 focus:outline-none focus:border-red-400 focus:border-2" %>
+    </div>
+
+    <div>
+        <%= f.label :location, class: "block font-medium mb-1" %>
+        <%= f.text_field :location,  class: "w-full border border-red-400 rounded px-4 py-2 focus:outline-none focus:border-red-400 focus:border-2" %>
+    </div>
+
+    <div>
+        <%= f.label :description, class: "block font-medium mb-1" %>
+        <%= f.text_area :description, rows: 4, class: "w-full border border-red-400 rounded px-4 py-2 focus:outline-none focus:border-red-400 focus:border-2" %>
+    </div>
+
+
+    <div class="mb-4">
+      <%= label_tag :password, "New Password", class: "block font-medium mb-1" %>
+      <%= password_field_tag "user[password]", nil, class: "border border-red-300 p-2 w-full rounded-sm focus:border-red-500" %>
+    </div>
+
+    <div class="mb-4">
+      <%= label_tag :password_confirmation, "Confirm Password", class: "block font-medium mb-1" %>
+      <%= password_field_tag "user[password_confirmation]", nil, class: "border border-red-300 p-2 w-full rounded-sm focus:border-red-500" %>
+    </div>
+
+    <div class="text-center mt-6">
+      <%= f.submit "Save Changes", class: "bg-red-300 text-white py-2 px-4 rounded-xl hover:bg-red-400" %>
+    </div>
+  <% end %>
+  <% if user_signed_in? %>
+    <div class="text-center mt-6">
+      <%= button_to "Log out",destroy_user_session_path, method: :delete, class: "bg-red-300 text-white py-2 px-4 rounded-xl hover:bg-red-400" %>
+    </div>
+  <% end %>
+</div>

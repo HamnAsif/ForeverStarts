@@ -1,0 +1,30 @@
+<div class="w-full h-screen flex justify-center items-center">
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Complete Your Profile</h2>
+        <%= form_with model: @vendor, url: vendors_registration_path, method: :put, local: true, class: "space-y-6" do |f| %>
+            <div>
+                <%= f.label :contact, "Contact Number", class: "block font-medium" %>
+                <%= f.text_field :contact, placeholder: "+92XXXXXXXXXX",class: "w-full border border-red-400 rounded px-4 py-2 focus:outline-none focus:border-red-400 focus:border-2" %>
+            </div>
+
+            <div>
+                <%= f.label :location, class: "block font-medium" %>
+                <%= f.text_field :location,  class: "w-full border border-red-400 rounded px-4 py-2 focus:outline-none focus:border-red-400 focus:border-2" %>
+            </div>
+
+            <div>
+                <%= f.label :description, class: "block font-medium" %>
+                <%= f.text_area :description, rows: 4, class: "w-full border border-red-400 rounded px-4 py-2 focus:outline-none focus:border-red-400 focus:border-2" %>
+            </div>
+
+            <div class ="flex justify-center">
+                <%= f.submit "Save Details", class: "bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded" %>
+            </div>
+        <% end %>
+  </div>
+</div>
+
+
+
+
+

@@ -1,28 +1,27 @@
-# app/controllers/couples/profile_controller.rb
 class Couples::ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_couple
 
   def show
-    # Show profile info if needed
   end
 
   def edit
   end
 
   def update
-    if @couple.update(couple_params) && current_user.update(user_params)
-      redirect_to couples_dashboard_path, notice: "Profile updated successfully!"
+    @couple = current_user.authenticatable
+
+    if current_user.update(user_params) && @couple.update(couple_params)
+      redirect_to couples_profile_path, notice: "Profile updated!"
     else
-      flash.now[:alert] = "Update failed!"
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
   private
 
   def set_couple
-    @couple = current_user.authenticatable 
+    @couple = current_user.authenticatable
   end
 
   def couple_params
@@ -30,6 +29,6 @@ class Couples::ProfilesController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:profile_image, :email, :password, :password_confirmation)
   end
 end
