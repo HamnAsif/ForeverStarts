@@ -16,6 +16,7 @@ class Vendors::RegistrationsController < ApplicationController
       if @user.save
         sign_in(@user)
         redirect_to edit_vendors_registration_path(@vendor), notice: "Signed up successfully as a Vendor."
+        
       else
         @vendor.destroy
         flash.now[:alert] = "User creation failed: #{@user.errors.full_messages.to_sentence}"

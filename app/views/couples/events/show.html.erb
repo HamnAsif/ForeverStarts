@@ -24,12 +24,12 @@
 
             <div class = "mb-4">
                     <%= label_tag :name, "Event Name", class: "block text-sm font-medium mb-1" %>
-                    <%= text_field_tag "event[event_name]",  class:"w-full border border-red-300 rounded px-3 py-2", required: true %>
+                    <%= text_field_tag "event[event_name]", @event.event_name, class: "w-full border border-red-300 rounded px-3 py-2", required: true %>
             </div >
 
             <div class="mb-4">
               <%= label_tag :event_date, "Event Date", class: "block text-sm font-medium mb-1" %>
-              <%= date_field_tag "event[event_date]", class: "w-full border border-red-300 rounded px-3 py-2", required: true %>
+              <%= date_field_tag "event[event_date]", @event.event_date, class: "w-full border border-red-300 rounded px-3 py-2", required: true %>
             </div>
 
 

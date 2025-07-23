@@ -90,6 +90,7 @@ gem 'mini_magick'         # for image generation
 gem 'wicked_pdf'          # for generating PDFs
 gem 'wkhtmltopdf-binary'  # binary needed for PDF rendering
 
+gem 'noticed', '~> 2.7.1'
 
 
 

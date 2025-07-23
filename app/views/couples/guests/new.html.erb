@@ -11,8 +11,7 @@
                 Add Guest
             </button>
 
-            <div data-dialog-target="backdrop"class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden transition-opacity">
-        </div>
+            <div data-dialog-target="backdrop"class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden transition-opacity"></div>
         <dialog data-dialog-target="modal"class="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 open:flex rounded-md p-0 overflow-hidden shadow-lg w-full max-w-md hidden">
             <%= form_with url: couples_guest_path, method: :post, local: true, class:"bg-gray-100 h-full w-full flex flex-col space-y-6 p-6" do |f| %>
             <h2 class="text-xl font-semibold text-center text-red-400">Add Guest</h2>
@@ -58,7 +57,7 @@
 
 
     <div class="space-y-8 w-full">
-    <% current_user.authenticatable.events.each do |event| %>
+    <% current_user.authenticatable.events.order(:event_date).each do |event| %>
         <div onclick="myFunction(<%= event.id %>)" class="flex flex-col bg-gray-100 p-4 m-4 rounded-2xl shadow mx-20 space-y-2 hover:border-2 hover:border-red-300">
             <div class ="flex flex-row justify-between m-4">
                 <div class="flex flex-col">
@@ -85,7 +84,7 @@
         <tbody>
             <% if event.guests.any? %>
             <% event.guests.each do |guest| %>
-                <tr class="bg-white even:bg-red-50">
+                <tr class="bg-white">
                 <td class="px-4 py-2 border border-red-500"><%= guest.name %></td>
                 <td class="px-4 py-2 border border-red-500"><%= guest.whatsapp %></td>
                 <td class="px-4 py-2 border border-red-500">Nhi bulana</td> 
