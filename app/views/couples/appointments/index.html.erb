@@ -1,0 +1,126 @@
+<h1 class="text-2xl font-bold mb-4">Your Appointments</h1>
+
+<% if @appointments.any? %>
+  <div class="space-y-4">
+    <% @appointments.each do |appointment| %>
+      <div class="p-4 border rounded-lg bg-gray-50 shadow-sm flex flex-row justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-red-400"><%= appointment.service.vendor.username %></h2>
+          <h3 class="text-md text-gray-600"><%= appointment.service.title %></h3>
+
+          <p class="text-sm text-gray-600 mt-2">
+            <strong>Date:</strong>
+            <%= appointment.appointment_datetime.present? ? appointment.appointment_datetime.strftime("%B %d, %Y %I:%M %p") : "Not set" %>
+          </p>
+
+          <p class="text-sm text-gray-600">
+            <strong>Details:</strong>
+            <%= appointment.details %>
+          </p>
+        </div>
+
+        <div class="flex flex-col items-end justify-between space-y-2">
+          <span class="px-3 py-1 text-sm rounded-full font-semibold
+                      <%= case appointment.appointment_status
+                          when "pending" then 'bg-gray-100 text-red-700'
+                          when "confirmed" then 'bg-gray-100 text-red-700'
+                          when "completed" then 'bg-gray-100 text-red-700'
+                          when "cancelled" then 'bg-gray-200 text-red-700'
+                          end %>">
+            <%= appointment.appointment_status.capitalize %>
+          </span>
+
+          <% if appointment.pending? %>
+            <%= button_to "Cancel", cancel_couples_appointment_path(appointment),
+                          method: :patch,
+                          class: "bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm mt-2" %>
+
+          <% elsif appointment.confirmed? %>
+            <%= button_to "Mark as Completed", complete_couples_appointment_path(appointment),
+                          method: :patch,
+                          class: "bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm mt-2" %>
+
+          <% elsif appointment.completed? %>
+            <div data-controller="dialog" class="relative">
+              <!-- Open Modal Button -->
+              <button
+                  data-action="click->dialog#open"
+                  class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500">
+                  Give Feedback
+              </button>
+
+              <div data-dialog-target="backdrop" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden transition-opacity"></div>
+
+              <dialog data-dialog-target="modal" class="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 open:flex rounded-md p-0 overflow-hidden shadow-lg w-full max-w-md hidden">
+                <%= form_with url: ratings_path, method: :post, local: true, class: "bg-gray-100 h-full w-full flex flex-col space-y-6 p-6" do |f| %>
+                  <h2 class="text-xl font-semibold text-center text-red-400">Give Feedback</h2>
+
+                  <%= hidden_field_tag :appointment_id, appointment.id %>
+                  <%= hidden_field_tag :service_id, appointment.service.id %>
+                  
+                  <div class="mb-4">
+                    <%= label_tag :stars, "Your Rating", class: "block text-sm font-medium mb-1" %>
+
+                    
+                    <div class="flex space-x-1">
+                      <% 5.times do |i| %>
+                        <span
+                          class="star text-3xl cursor-pointer text-gray-400 hover:text-yellow-400"
+                          data-value="<%= i + 1 %>"
+                          onclick="setRating(<%= i + 1 %>, <%= appointment.id %>)"
+                          id="star-<%= appointment.id %>-<%= i + 1 %>">
+                          ★
+                        </span>
+                      <% end %>
+                    </div>
+
+                    <%= hidden_field_tag "rating[stars]", "", id: "rating-value-#{appointment.id}", required: true %>
+
+                  </div>
+
+
+                  <div class="mb-4">
+                    <%= label_tag :feedback, "Feedback", class: "block text-sm font-medium mb-1" %>
+                    <%= text_area_tag "rating[feedback]", nil, class: "w-full border border-red-300 rounded px-3 py-2", placeholder: "Share your experience...", required: true %>
+                  </div>
+
+                  <div class="flex justify-between mt-4">
+                    <%= submit_tag "Submit", class: "bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500" %>
+                    <button type="button" data-action="click->dialog#close" class="border border-red-400 text-red-500 px-4 py-2 rounded hover:bg-red-100">Cancel</button>
+                  </div>
+                <% end %>
+              </dialog>
+            </div>
+          <% end %>
+
+
+          
+     
+
+          
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <% else %>
+    <p class="text-gray-500">No appointments booked yet.</p>
+<% end %>
+<script>
+  function setRating(value, appointmentId) {
+    const ratingInput = document.getElementById(`rating-value-${appointmentId}`);
+    ratingInput.value = value;
+
+    for (let i = 1; i <= 5; i++) {
+      const star = document.getElementById(`star-${appointmentId}-${i}`);
+      if (i <= value) {
+        star.classList.remove("text-gray-400");
+        star.classList.add("text-yellow-400");
+      } else {
+        star.classList.remove("text-yellow-400");
+        star.classList.add("text-gray-400");
+      }
+    }
+  }
+</script>
+
+

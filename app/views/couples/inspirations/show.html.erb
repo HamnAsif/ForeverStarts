@@ -1,13 +1,39 @@
-
-<form class="w-full my-6 ">   
-    <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-            </svg>
-        </div>
-        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for inspiration" required />
-        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-red-300 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+<%= form_tag couples_inspiration_path, method: :get, class: "w-full my-6" do %>
+  <div class="relative">
+    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+      <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+      </svg>
     </div>
-</form>
+
+    <%= text_field_tag :q, params[:q], placeholder: "Search for inspiration", class: "block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" %>
+
+    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-red-300 hover:bg-red-400 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
+      Search
+    </button>
+  </div>
+<% end %>
+
+
+<!-- Masonry Grid -->
+<div class="columns-4 gap-4">
+  <% @results.each do |photo| %>
+    <div class="mb-4 break-inside-avoid border rounded shadow bg-white overflow-hidden">
+      <%= image_tag photo.urls.small, alt: photo.description || "Wedding photo", class: "w-full rounded-t" %>
+      <div class="p-2">
+        <p class="text-xs text-gray-500">
+          Photo by
+          <a href="<%= photo.user.links.html %>" target="_blank" class="underline hover:text-red-400">
+            <%= photo.user.name %>
+          </a> on
+          <a href="https://unsplash.com" target="_blank" class="underline hover:text-red-400">Unsplash</a>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+
+
 

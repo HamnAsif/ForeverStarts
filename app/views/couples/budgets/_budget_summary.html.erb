@@ -1,0 +1,45 @@
+<div class="grid grid-cols-3 gap-8 justify-center mb-6">
+  <!-- Total Budget -->
+  <div class="bg-red-200 rounded-lg p-6 shadow text-start">
+    <p class="text-gray-700 text-md font-medium mb-1">Total Budget</p>
+
+    <% if edit_mode %>
+      <%= form_with model: budget, url: couples_budget_path, method: :patch, data: { turbo_frame: "budget_summary" } do |f| %>
+        <div class="flex items-center gap-2">
+          <%= f.number_field :total_budget, class: "w-32 px-2 py-1 rounded border border-gray-300 focus:border-red-400 focus:outline-none", min: 0, autofocus: true %>
+          <%= f.submit "", class: "hidden" %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= link_to number_with_delimiter(budget.total_budget || 0), couples_budget_path(edit: true), data: { turbo_frame: "budget_summary" }, class: "text-xl font-bold cursor-pointer" %>
+    <% end %>
+  </div>
+
+  <!-- Spent -->
+  <div class="bg-red-200 rounded-lg p-6 shadow text-start">
+    <p class="text-gray-700 text-md font-medium mb-1">Spent</p>
+    <p class="text-xl font-bold">Rs <%= number_with_delimiter(budget.spent) %></p>
+  </div>
+
+  <!-- Remaining -->
+  <div class="bg-red-200 rounded-lg p-6 shadow text-start">
+    <p class="text-gray-700 text-md font-medium mb-1">Remaining</p>
+    <p class="text-xl font-bold">Rs <%= number_with_delimiter(budget.remaining) %></p>
+  </div>
+</div>
+
+<!-- Budget Progress Bar -->
+<% if budget.total_budget.present? && budget.total_budget > 0 %>
+  <% percentage = ((budget.spent.to_f / budget.total_budget) * 100).round(3) %>
+<% else %>
+  <% percentage = 0 %>
+<% end %>
+<div class="w-full">
+  <div class="flex justify-between text-sm mb-1">
+    <span class="text-gray-700 font-medium">Budget Progress</span>
+    <span class="text-gray-700 font-medium"><%= percentage %>%</span>
+  </div>
+  <div class="h-2 w-full bg-gray-200 rounded-full">
+    <div class="h-2 bg-black rounded-full" style="width: <%= percentage %>%"></div>
+  </div>
+</div>

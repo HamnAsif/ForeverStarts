@@ -2,8 +2,6 @@ class Couples::ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_couple
 
-  def show
-  end
 
   def edit
   end
@@ -14,7 +12,8 @@ class Couples::ProfilesController < ApplicationController
     if current_user.update(user_params) && @couple.update(couple_params)
       redirect_to couples_profile_path, notice: "Profile updated!"
     else
-      render :edit
+      flash.now[:alert] = "Update failed!"
+      render :edit, status: :unprocessable_entity
     end
   end
 

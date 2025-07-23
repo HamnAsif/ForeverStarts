@@ -3,15 +3,12 @@ class Vendors::ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_vendor
 
-  def show
-  end
-
   def edit
   end
 
   def update
     if @vendor.update(vendor_params) && current_user.update(user_params)
-      redirect_to vendors_dashboard_path, notice: "Profile updated successfully!"
+      redirect_to vendors_profile_path, notice: "Profile updated successfully!"
     else
       flash.now[:alert] = "Update failed!"
       render :edit, status: :unprocessable_entity
@@ -29,6 +26,6 @@ class Vendors::ProfilesController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:profile_image, :email, :password, :password_confirmation)
   end
 end

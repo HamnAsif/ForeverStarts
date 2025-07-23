@@ -73,3 +73,23 @@ gem 'image_processing', '~> 1.2'
 
 
 gem 'sprockets-rails'
+
+gem 'ransack'
+gem 'barby'
+gem 'rqrcode'
+gem 'chunky_png'
+
+
+gem 'unsplash', github: 'unsplash/unsplash_rb'
+gem 'dotenv-rails'
+
+gem 'ratyrate'
+
+gem 'simple_form'         # for better forms
+gem 'mini_magick'         # for image generation
+gem 'wicked_pdf'          # for generating PDFs
+gem 'wkhtmltopdf-binary'  # binary needed for PDF rendering
+
+
+
+

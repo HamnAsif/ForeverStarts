@@ -1,14 +1,40 @@
+
+<div class ="flex flex-row justify-between mx-10">
+  <div>
+    <h2 class="text-2xl font-bold mt-6 text-center">Profile Settings</h2>
+  </div>
+  <div>
+    <% if user_signed_in? %>
+      <div class="text-center mt-6">
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "bg-red-300 text-white py-2 px-4 rounded-xl hover:bg-red-400" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
 <div class="w-full h-screen flex justify-center items-center">
   <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">Profile Settings</h2>
-
-    
-    
 
     <%= form_with model: @couple, url: couples_profile_path, method: :patch, local: true, multipart: true do |f| %>
 
-      <%= file_field_tag "user[profile_image]", class: "border p-2 w-full" %>
+      <div class="flex flex-col items-center mb-6">
+        <div class="relative">
+          <% if current_user.profile_image.attached? %>
+            <%= image_tag url_for(current_user.profile_image), class: "w-24 h-24 rounded-full object-cover shadow-md" %>
+          <% else %>
+            <img src="https://www.svgrepo.com/download/512697/profile-1341.svg" alt="Default Profile" class="w-24 h-24 rounded-full object-cover shadow-md bg-gray-200" />
+          <% end %>
 
+          <!-- Hidden file input triggered by label -->
+          <%= file_field_tag "user[profile_image]", class: "hidden", id: "profile_image_input" %>
+        </div>
+
+        <!-- Custom upload button -->
+        <label for="profile_image_input" class="text-red-300 underline decoration-red-500 hover:text-red-400 focus:text-red-500 cursor-pointer mt-2">
+          Change Profile Picture
+        </label>
+      </div>
 
 
 
@@ -42,10 +68,5 @@
       </div>
     <% end %>
 
-    <% if user_signed_in? %>
-      <div class="text-center mt-6">
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "bg-red-300 text-white py-2 px-4 rounded-xl hover:bg-red-400" %>
-      </div>
-    <% end %>
   </div>
 </div>

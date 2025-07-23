@@ -19,11 +19,17 @@
     
 
     <% if current_admin_user %>
-      <%= stylesheet_link_tag "active_admin", media: "all" %>
+      <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <% else %>
-      <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+      <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+      
+
+
     <% end %>
     <%= javascript_importmap_tags %>
+    
+
+
 
   </head>
 
@@ -39,13 +45,24 @@
     
           <nav class="space-x-10 text-black font-medium">
           <div class="flex flex-row justify-end-safe space-x-10">
-            <a href="<%= couples_findvendor_path %>" class="hover:text-red-300">Vendors</a>
-            <a href="<%= couples_budget_path%>" class="hover:text-red-300">Budget Tracker</a>
-            <a href="<%= couples_inspiration_path %>" class="hover:text-red-300">Inspiration</a>
-            <a href="<%= couples_guest_path %>" class="hover:text-red-300">Guests</a>
-            <%= link_to "Add Event", new_couples_event_path, class: "hover:text-red-300" %>
-            <a href="<%= couples_card_path %>" class="hover:text-red-300">Invitation Cards</a>   
-            <a href="<%= edit_couples_profile_path %>" class="hover:text-red-300">Profile</a>
+          <div class = "mt-2 space-x-10">
+            <a href="<%= couples_dashboard_path %>" class="hover:text-red-400">Home</a>
+            <a href="<%= couples_findvendors_path %>" class="hover:text-red-400">Vendors</a>
+            <a href="<%= couples_appointments_path %>" class="hover:text-red-400">Appointments</a>
+            <a href="<%= couples_budget_path%>" class="hover:text-red-400">Budget Tracker</a>
+            <a href="<%= couples_inspiration_path %>" class="hover:text-red-400">Inspiration</a>
+            <a href="<%= couples_guest_path %>" class="hover:text-red-400">Guests</a>
+            <%= link_to "Add Event", new_couples_event_path, class: "hover:text-red-400" %>
+            <a href="<%= new_couples_card_path %>" class="hover:text-red-400">Invitation Cards</a> 
+            
+          </div>
+            <a href="#", class="h-10 w-10">
+                    <img src="https://www.svgrepo.com/download/522763/bell.svg" alt="Notification Icon">
+            </a>  
+            <a href="<%= edit_couples_profile_path %>" class="h-10 w-10">
+              <img src="https://www.svgrepo.com/download/498301/profile-circle.svg" alt="profile Icon">
+            </a>
+            
           </div>
           </nav>
       </header>
@@ -60,8 +77,18 @@
     
           <nav class="space-x-10 text-black font-medium">
             <div class="flex flex-row justify-end-safe space-x-10">
-                <a href="#" class="hover:text-red-300">Notifications</a> 
-                <a href="<%= edit_vendors_profile_path %>" class="hover:text-red-300">Profile</a>           
+            <div class = " mt-2 space-x-10">
+                <a href="<%= new_vendors_service_path %>" class="hover:text-red-400">Services</a>
+                <a href="<%= vendors_appointments_path %>" class="hover:text-red-400">Appointments</a>
+            </div>
+            
+                <a href="#", class="h-10 w-10">
+                  <img src="https://www.svgrepo.com/download/522763/bell.svg" alt="Notification Icon">
+                </a>
+                <a href="<%= edit_vendors_profile_path %>" class="h-10 w-10">
+                  <img src="https://www.svgrepo.com/download/498301/profile-circle.svg" alt="profile Icon">
+                </a> 
+                      
             </div>
           </nav>
       </header>

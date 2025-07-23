@@ -5,13 +5,12 @@ class Couples::GuestsController < ApplicationController
     @events = current_user.authenticatable.events
   end
   def create
-    puts "--------------------------"
-    puts "#{params.inspect}"
-    Rails.logger.debug "PARAMS: #{params.inspect}"
+
     @guest = Guest.new(guest_params)
     if @guest.save
       redirect_to couples_guest_path, notice: "Guest added!"
     else
+      @guest.destroy
       render :new
     end
   end

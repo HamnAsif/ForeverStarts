@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stars: 1
+  feedback: MyText
+  couple: one
+  service: one
+
+two:
+  stars: 1
+  feedback: MyText
+  couple: two
+  service: two

@@ -3,5 +3,6 @@ class Vendors::DashboardController < ApplicationController
 
   def show
     @vendor = current_user.authenticatable
+    @service = Service.new
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_08_084334) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_20_095057) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -65,6 +65,53 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_08_084334) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "appointments", force: :cascade do |t|
+    t.datetime "appointment_datetime"
+    t.text "details"
+    t.integer "couple_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "service_id"
+    t.integer "appointment_status", default: 0
+    t.index ["couple_id"], name: "index_appointments_on_couple_id"
+    t.index ["service_id"], name: "index_appointments_on_service_id"
+  end
+
+  create_table "average_caches", force: :cascade do |t|
+    t.integer "rater_id"
+    t.string "rateable_type"
+    t.integer "rateable_id"
+    t.float "avg", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rateable_type", "rateable_id"], name: "index_average_caches_on_rateable"
+    t.index ["rater_id"], name: "index_average_caches_on_rater_id"
+  end
+
+  create_table "budgets", force: :cascade do |t|
+    t.integer "total_budget", default: 0
+    t.integer "spent", default: 0
+    t.integer "remaining", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "couple_id"
+    t.index ["couple_id"], name: "index_budgets_on_couple_id"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.integer "couple_id", null: false
+    t.time "event_time"
+    t.string "venue"
+    t.string "rsvp_contact"
+    t.string "template"
+    t.string "invitation_line"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "event_id", null: false
+    t.index ["couple_id"], name: "index_cards_on_couple_id"
+    t.index ["event_id"], name: "index_cards_on_event_id"
+  end
+
   create_table "couples", force: :cascade do |t|
     t.string "bride_name"
     t.string "groom_name"
@@ -88,6 +135,77 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_08_084334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_guests_on_event_id"
+  end
+
+  create_table "overall_averages", force: :cascade do |t|
+    t.string "rateable_type"
+    t.integer "rateable_id"
+    t.float "overall_avg", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rateable_type", "rateable_id"], name: "index_overall_averages_on_rateable"
+  end
+
+  create_table "raters", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rates", force: :cascade do |t|
+    t.integer "rater_id"
+    t.string "rateable_type"
+    t.integer "rateable_id"
+    t.float "stars", null: false
+    t.string "dimension"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rateable_id", "rateable_type"], name: "index_rates_on_rateable_id_and_rateable_type"
+    t.index ["rateable_type", "rateable_id"], name: "index_rates_on_rateable"
+    t.index ["rater_id"], name: "index_rates_on_rater_id"
+  end
+
+  create_table "rating_caches", force: :cascade do |t|
+    t.string "cacheable_type"
+    t.integer "cacheable_id"
+    t.float "avg", null: false
+    t.integer "qty", null: false
+    t.string "dimension"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type"
+    t.index ["cacheable_type", "cacheable_id"], name: "index_rating_caches_on_cacheable"
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer "stars"
+    t.text "feedback"
+    t.integer "couple_id", null: false
+    t.integer "service_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["couple_id"], name: "index_ratings_on_couple_id"
+    t.index ["service_id"], name: "index_ratings_on_service_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "title"
+    t.text "caption"
+    t.integer "vendor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "price", default: 0
+    t.integer "budget_id"
+    t.index ["budget_id"], name: "index_services_on_budget_id"
+    t.index ["vendor_id"], name: "index_services_on_vendor_id"
+  end
+
+  create_table "todo_lists", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.string "title"
+    t.integer "todolist_status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_todo_lists_on_event_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -117,6 +235,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_08_084334) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "appointments", "couples"
+  add_foreign_key "appointments", "services"
+  add_foreign_key "budgets", "couples"
+  add_foreign_key "cards", "couples"
+  add_foreign_key "cards", "events"
   add_foreign_key "events", "couples"
   add_foreign_key "guests", "events"
+  add_foreign_key "ratings", "couples"
+  add_foreign_key "ratings", "services"
+  add_foreign_key "services", "budgets"
+  add_foreign_key "services", "vendors"
+  add_foreign_key "todo_lists", "events"
 end

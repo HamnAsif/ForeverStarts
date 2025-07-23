@@ -1,0 +1,94 @@
+<div>
+  <div class = "flex flex-row justify-between mt-4">
+    <div>
+      <h1 class="text-2xl font-bold mb-2"><%= @service.title %></h1>
+      <p class="text-gray-700 mb-6"><%= @service.caption %></p>
+    </div>
+    <div data-controller="dialog"  class="relative mt-10 ml-14">
+        <!-- Open Modal Button -->
+        <button 
+            data-action="click->dialog#open" 
+            class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500">
+            Book Appointment
+        </button>
+
+        <div data-dialog-target="backdrop"class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden transition-opacity">
+        </div>
+        <dialog data-dialog-target="modal"class="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 open:flex rounded-md p-0 overflow-hidden shadow-lg w-full max-w-md hidden"> 
+           <%= form_with model: @appointment, url: couples_appointments_path, method: :post, class: "w-full p-4" do |f| %>
+
+                <h2 class="text-xl font-semibold text-center text-red-400">Book Appointment</h2>
+                <%= f.hidden_field :service_id, value: @service.id %>
+                <%= f.hidden_field :service_id, value: @service.id %>
+
+                <div class="mb-4">
+                    <%= f.datetime_local_field :appointment_datetime, class: "w-full border border-red-300 rounded px-3 py-2", required: true %>
+                </div>
+
+                <div class="mb-4">
+                    <%= f.text_area :details, class: "w-full border border-red-300 rounded px-3 py-2", placeholder: "Mention any specific requests...", required: true %>
+                </div>
+
+
+                <div class="flex justify-between mt-4">
+                    <%= f.submit "Book", class:"bg-red-300 text-white px-4 py-2 rounded hover:bg-red-400" %>
+
+                    <button type="button" data-action = "click->dialog#close"  class="border border-red-400 text-red-500 px-4 py-2 rounded hover:bg-red-100">Cancel</button>
+                </div>
+
+            <% end %>
+            
+
+        </dialog>
+</div>
+  </div>
+  <hr class="h-px my-4 bg-red-300 border-0">
+  <% if @service.images.attached? %>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 mb-10">
+        <% @service.images.each do |image| %>
+        <div class="relative w-full aspect-square overflow-hidden rounded-lg shadow group">
+            <%= image_tag url_for(image), class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" %>
+        </div>
+        <% end %>
+    </div>
+    <% else %>
+    <div class="bg-gray-100 w-full h-64 flex items-center justify-center text-gray-400 mb-4">
+        No Images Available
+    </div>
+    <% end %>
+
+    <hr class="h-px my-6 bg-red-300 border-0">
+
+  <h2 class="text-xl font-semibold text-red-400 mb-4">Customer Reviews</h2>
+
+    <% if @ratings.any? %>
+    <div class="space-y-4">
+        <% @ratings.each do |rating| %>
+        <div class="bg-gray-100 p-4 rounded-lg shadow-sm border">
+            <div class="flex items-center space-x-1">
+            <% 5.times do |i| %>
+                <span class="text-xl <%= i < rating.stars ? 'text-yellow-400' : 'text-gray-300' %>">
+                ★
+                </span>
+            <% end %>
+        </div>
+            <p class="text-gray-800 mt-2">
+            "<%= rating.feedback %>"
+            </p>
+            
+
+            <% if rating.couple && rating.couple.user %>
+            <p class="text-sm text-gray-500 mt-1">
+                — <%= "#{rating.couple.bride_name} & #{rating.couple.groom_name}" rescue rating.couple.user.email %>
+            </p>
+            <% end %>
+        </div>
+        <% end %>
+    </div>
+    <% else %>
+        <p class="text-gray-500">No reviews yet for this service.</p>
+    <% end %>
+
+</div>
+
+

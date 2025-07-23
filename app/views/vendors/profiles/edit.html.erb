@@ -1,17 +1,37 @@
-
-  <div class="bg-white p-8 rounded w-full max-w-md">
-  <h2 class="text-2xl font-bold mb-6 text-center">Profile Settings</h2>
-
-  <div class="flex flex-col items-center mb-6">
-  <div class="bg-gray-200 w-24 h-24 rounded-full flex items-center justify-center mb-2">
-     <img src="https://www.svgrepo.com/download/512697/profile-1341.svg" alt="Profile Icon" class="w-15 h-15">
+<div class ="flex flex-row justify-between mx-10">
+  <div>
+    <h2 class="text-2xl font-bold mt-6 text-center">Profile Settings</h2>
   </div>
-  <div class="text-red-300 underline decoration-red-500 hover:text-red-400 focus:text-red-500 cursor-pointer">
-    Change Profile Picture
+  <div>
+    <% if user_signed_in? %>
+      <div class="text-center mt-6">
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "bg-red-300 text-white py-2 px-4 rounded-xl hover:bg-red-400" %>
+      </div>
+    <% end %>
   </div>
 </div>
 
-  <%= form_with model: @vendor, url: vendors_profile_path, method: :patch, local: true do |f| %>
+  
+<div class="bg-white p-8 rounded w-full px-130">
+
+  <%= form_with model: @vendor, url: vendors_profile_path, method: :patch, multipart: true, local: true do |f| %>
+    <div class="flex flex-col justify-center items-center mb-6">
+        <div class="relative">
+          <% if current_user.profile_image.attached? %>
+            <%= image_tag url_for(current_user.profile_image), class: "w-24 h-24 rounded-full object-cover shadow-md" %>
+          <% else %>
+            <img src="https://www.svgrepo.com/download/512697/profile-1341.svg" alt="Default Profile" class="w-24 h-24 rounded-full object-cover shadow-md bg-gray-200" />
+          <% end %>
+
+          <!-- Hidden file input triggered by label -->
+          <%= file_field_tag "user[profile_image]", class: "hidden", id: "profile_image_input" %>
+        </div>
+
+        <label for="profile_image_input" class="text-red-300 underline decoration-red-500 hover:text-red-400 focus:text-red-500 cursor-pointer mt-2">
+          Change Profile Picture
+        </label>
+    </div>
+
     <div class="mb-4">
       <%= f.label :username, class: "block font-medium mb-1" %>
       <%= f.text_field :username, class: "border border-red-300 p-2 w-full rounded-sm" %>
@@ -57,9 +77,5 @@
       <%= f.submit "Save Changes", class: "bg-red-300 text-white py-2 px-4 rounded-xl hover:bg-red-400" %>
     </div>
   <% end %>
-  <% if user_signed_in? %>
-    <div class="text-center mt-6">
-      <%= button_to "Log out",destroy_user_session_path, method: :delete, class: "bg-red-300 text-white py-2 px-4 rounded-xl hover:bg-red-400" %>
-    </div>
-  <% end %>
+  
 </div>

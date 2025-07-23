@@ -11,12 +11,7 @@ class Vendors::RegistrationsController < ApplicationController
     @vendor = Vendor.new(signup_vendor_params)
 
     if @vendor.save
-      @user = User.new(
-        email: params[:email],
-        password: params[:password],
-        password_confirmation: params[:password_confirmation],
-        authenticatable: @vendor
-      )
+      @user = User.new(user_params.merge(authenticatable: @vendor))
 
       if @user.save
         sign_in(@user)

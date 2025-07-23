@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service: one
+  total_budget: 1
+  spent: 1
+  remaining: 1
+
+two:
+  service: two
+  total_budget: 1
+  spent: 1
+  remaining: 1

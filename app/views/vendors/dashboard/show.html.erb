@@ -1,16 +1,18 @@
 <div class=" py-10 px-4 md:px-12 w-300 mx-auto">
   <!-- Profile Header -->
-  <div class="flex flex-row items-center space-x-10 ">
+  <div class="flex flex-row items-center mx-10 space-x-10 ">
     <!-- Profile Image -->
-    <div class="w-40 h-40 rounded-full overflow-hidden m-20 border border-gray-100">
-      <img src="https://www.svgrepo.com/show/512697/profile-1341.svg" alt="Vendor Image" class="w-full h-full object-cover">
-    </div>
+    <% if current_user.profile_image.attached? %>
+      <%= image_tag url_for(current_user.profile_image), class: "w-24 h-24 rounded-full object-cover shadow-md" %>
+    <% else %>
+      <img src="https://www.svgrepo.com/download/512697/profile-1341.svg" alt="Default Profile" class="w-24 h-24 rounded-full object-cover shadow-md bg-gray-200" />
+    <% end %>
 
     <!-- Vendor Info -->
     <div class="text-center md:text-left">
       <h1 class="text-3xl font-bold text-gray-800"><%= @vendor.username %></h1>
       <p class="text-gray-600 mt-2 font-medium"><%= @vendor.category %></p>
-      <p class="text-gray-600 mt-4 w-180">
+      <p class="text-gray-600 mt-4 w-200">
         <%= @vendor.description.presence || "This vendor hasn’t added a description yet." %>
       </p>
     </div>
@@ -34,4 +36,9 @@
       </div>
     </div>
   </div>
+
+
+
+
+
 </div>

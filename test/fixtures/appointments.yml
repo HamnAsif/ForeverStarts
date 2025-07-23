@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  appointment_datetime: 2025-07-10 11:31:15
+  details: MyText
+  couple: one
+  vendor: one
+
+two:
+  appointment_datetime: 2025-07-10 11:31:15
+  details: MyText
+  couple: two
+  vendor: two

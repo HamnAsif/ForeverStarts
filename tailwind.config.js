@@ -4,11 +4,18 @@ module.exports = {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        brock: ['"BrockScript"', 'cursive'],
+        vibes: ['"Great Vibes"', 'cursive'],
+      },
+
+    },
   },
   plugins: [
     require('flowbite/plugin')
   ],
 }
+
 
 

@@ -1,0 +1,58 @@
+<div class = "mx-10">
+<h1 class="text-2xl font-bold my-4">Your Appointments</h1>
+
+<% if @appointments.any? %>
+  <div class="space-y-4">
+    <% @appointments.each do |appointment| %>
+      <div class="p-4 border border-red-300 rounded-xl bg-white shadow-sm flex flex-row justify-between">
+        <div>
+        <h2 class="text-lg font-semibold text-red-400">
+          <%= appointment.couple.bride_name %> & <%= appointment.couple.groom_name %>
+        </h2>
+        <h3 class="text-md text-gray-600"><%= appointment.service.title %></h3>
+
+        <p class="text-sm text-gray-600 mt-2">
+          <strong>Date:</strong>
+          <%= appointment.appointment_datetime.present? ? appointment.appointment_datetime.strftime("%B %d, %Y") : "Not set" %>
+          <strong>Time:</strong>
+          <%= appointment.appointment_datetime.present? ? appointment.appointment_datetime.strftime("%I:%M %p") : "Not set" %>
+        </p>
+
+        <% if appointment.details.present? %>
+          <p class="text-sm text-gray-600 mt-1">
+            <strong>Details:</strong>
+            <%= appointment.details %>
+          </p>
+        <% end %>
+        </div>
+        <div class="flex flex-col items-end justify-between space-y-2">
+          <span class="px-3 py-1 text-sm rounded-full font-semibold
+                      <%= case appointment.appointment_status
+                          when "pending" then 'bg-yellow-100 text-yellow-700'
+                          when "confirmed" then 'bg-green-100 text-green-700'
+                          when "completed" then 'bg-blue-100 text-blue-700'
+                          when "cancelled" then 'bg-red-100 text-red-700'
+                          end %>">
+            <%= appointment.appointment_status.capitalize %>
+          </span>
+
+          <% if appointment.pending? %>
+            <div class="flex gap-2">
+              <%= button_to "Confirm", confirm_vendors_appointment_path(appointment),
+                            method: :patch,
+                            class: "bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm" %>
+
+              <%= button_to "Cancel", cancel_vendors_appointment_path(appointment),
+                            method: :patch,
+                            class: "bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm" %>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-gray-500">No appointments booked yet.</p>
+<% end %>
+</div>

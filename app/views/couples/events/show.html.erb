@@ -1,0 +1,91 @@
+<div class="flex flex-row justify-between mt-4">
+  <div>
+    <h1 class="text-2xl font-bold mb-4"><%= @event.event_name %></h1>
+    <p class="text-gray-500">Date: <%= @event.event_date %></p>
+  </div>
+
+  <div class="flex flex-row items-end space-x-4">
+    <%= form_with url: couples_event_path(@event), method: :delete do %>
+      <%= submit_tag "Delete Event", class: "bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500" %>
+    <% end %>
+    <div data-controller="dialog"  class="relative">
+      <!-- Open Modal Button -->
+      <button 
+          data-action="click->dialog#open" 
+          class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500">
+          Edit Event
+      </button>
+
+      <div data-dialog-target="backdrop"class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden transition-opacity"></div>
+        <dialog data-dialog-target="modal"class="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 open:flex rounded-md p-0 overflow-hidden shadow-lg w-full max-w-md hidden">
+            <%= form_with model: @event, url: couples_event_path(@event), method: :patch, local: true, class: "bg-gray-100 h-full w-full flex flex-col space-y-6 p-6" do |f| %>
+
+            <h2 class="text-xl font-semibold text-center text-red-400">Edit Event</h2>
+
+            <div class = "mb-4">
+                    <%= label_tag :name, "Event Name", class: "block text-sm font-medium mb-1" %>
+                    <%= text_field_tag "event[event_name]",  class:"w-full border border-red-300 rounded px-3 py-2", required: true %>
+            </div >
+
+            <div class="mb-4">
+              <%= label_tag :event_date, "Event Date", class: "block text-sm font-medium mb-1" %>
+              <%= date_field_tag "event[event_date]", class: "w-full border border-red-300 rounded px-3 py-2", required: true %>
+            </div>
+
+
+            <div class="flex justify-between mt-4">
+                <%= submit_tag "Done", class:"bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500"%>
+                <button type="button" data-action = "click->dialog#close"  class="border border-red-400 text-red-500 px-4 py-2 rounded hover:bg-red-100">Cancel</button>
+            </div>
+
+            <% end %>
+
+        </dialog>
+    </div>
+  </div>
+</div>
+
+<hr class="my-6">
+
+<h2 class="text-xl font-semibold mb-2">Add a Task</h2>
+<%= form_with model: [@event, @todo_list], url: couples_event_todo_lists_path(@event), local: true do |f| %>
+  <div class="flex space-x-4">
+    <%= f.text_field :title, placeholder: "Task title", class: "border border-red-300 p-2 rounded w-full" %>
+    <%= f.submit "Add Task", class: "bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500" %>
+  </div>
+<% end %>
+
+<h2 class="text-xl font-semibold mt-8 mb-2">Your Tasks</h2>
+
+<ul class="space-y-2">
+  <% @todos.each do |todo| %>
+    <% next if todo.nil? || todo.id.nil? %>
+
+    <li class="flex items-center bg-gray-100 p-2 rounded justify-between">
+      <div class="flex items-center space-x-3 w-full">
+        
+
+        <%= form_with url: update_status_couples_todo_list_path(todo), method: :patch, local: true do %>
+          <%= submit_tag "", class: "h-4 w-4 rounded-full border border-gray-400 #{todo.pending? ? 'bg-white' : 'bg-red-400'}" %>
+        <% end %>
+
+        
+        <% if params[:edit_id].to_i == todo.id %>
+          <%= form_with model: todo, url: couples_todo_list_path(todo), method: :patch, local: true, class: "flex space-x-2 w-full" do |f| %>
+            <%= f.text_field :title, class: "border p-1 rounded w-full" %>
+            <%= f.submit "Save", class: "text-white bg-red-400 px-3 py-1 rounded hover:bg-red-500" %>
+            <%= link_to "Cancel", request.path, class: "text-gray-500 underline ml-2" %>
+          <% end %>
+
+        
+        <% else %>
+          <span class="flex-1"><%= todo.title %></span>
+          <div class="flex justify-end gap-4">
+            <%= link_to "Edit", request.path + "?edit_id=#{todo.id}", class: "text-red-500 hover:underline" %>
+            <%= button_to "Delete", couples_todo_list_path(todo), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500 hover:underline bg-transparent border-0 p-0" %>
+          </div>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>
