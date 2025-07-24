@@ -16,6 +16,16 @@ class Vendors::RegistrationsController < ApplicationController
       if @user.save
         sign_in(@user)
         redirect_to edit_vendors_registration_path(@vendor), notice: "Signed up successfully as a Vendor."
+        Couple.find_each do |couple|
+          NewVendorSignedUpNotifier.with(
+            vendor: @vendor, # 👈 This is required
+            message: "#{@vendor.username} (#{@vendor.category}) just joined!",
+            url: "/couples/findvendors/#{@vendor.id}"
+          ).deliver_later(couple)
+
+
+        end
+
         
       else
         @vendor.destroy

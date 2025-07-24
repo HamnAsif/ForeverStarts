@@ -13,8 +13,9 @@ class Couples::BudgetsController < ApplicationController
 
       @budget.update(
         spent: spent,
-        remaining: (@budget.total_budget || 0) - spent
+        remaining: (@budget.total_budget) - spent
       )
+
 
     else
       @services = []
@@ -25,6 +26,7 @@ class Couples::BudgetsController < ApplicationController
   def update
     if @budget.update(budget_params)
       @budget.update(remaining: @budget.total_budget - @budget.spent)
+       notify_if_budget_negative
 
       respond_to do |format|
         format.turbo_stream do
@@ -55,6 +57,17 @@ class Couples::BudgetsController < ApplicationController
           render :show
         end
       end
+    end
+  end
+
+  def notify_if_budget_negative
+    couple = current_user.authenticatable
+    if @budget.remaining.negative?
+      BudgetNotifier.with(
+        budget: @budget,
+        message: "Warning: Your budget is overspent by Rs #{-@budget.remaining}.",
+        url: "/couples/budget"
+        ).deliver_later(couple)
     end
   end
 

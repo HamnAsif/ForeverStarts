@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_23_124535) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_24_023542) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -161,6 +161,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_23_124535) do
     t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "type"
+    t.json "params", default: {}
+    t.integer "recipient_id", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
+  end
+
   create_table "overall_averages", force: :cascade do |t|
     t.string "rateable_type"
     t.integer "rateable_id"
@@ -266,6 +276,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_23_124535) do
   add_foreign_key "cards", "events"
   add_foreign_key "events", "couples"
   add_foreign_key "guests", "events"
+  add_foreign_key "notifications", "recipients"
   add_foreign_key "ratings", "couples"
   add_foreign_key "ratings", "services"
   add_foreign_key "services", "budgets"

@@ -30,16 +30,30 @@
 
 <!-- Budget Progress Bar -->
 <% if budget.total_budget.present? && budget.total_budget > 0 %>
-  <% percentage = ((budget.spent.to_f / budget.total_budget) * 100).round(3) %>
+  <% if budget.spent <= budget.total_budget %>
+    <% percentage = ((budget.spent.to_f / budget.total_budget) * 100).round(2) %>
+  <% else %>
+    <% percentage = 100 %>
+  <% end %>
 <% else %>
   <% percentage = 0 %>
 <% end %>
+
 <div class="w-full">
   <div class="flex justify-between text-sm mb-1">
     <span class="text-gray-700 font-medium">Budget Progress</span>
     <span class="text-gray-700 font-medium"><%= percentage %>%</span>
   </div>
-  <div class="h-2 w-full bg-gray-200 rounded-full">
-    <div class="h-2 bg-black rounded-full" style="width: <%= percentage %>%"></div>
+
+  <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+    <div 
+      class="h-2 rounded-full transition-all duration-300 ease-in-out"
+      style="width: <%= percentage %>%; background-color: <%= budget.spent > budget.total_budget ? '#dc2626' : '#000' %>;">
+    </div>
   </div>
+
+  <% if budget.spent > budget.total_budget %>
+    <p class="text-red-600 text-sm mt-1">Warning: You've overspent your budget!</p>
+  <% end %>
 </div>
+

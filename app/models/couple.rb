@@ -6,6 +6,7 @@ class Couple < ApplicationRecord
   has_many :cards
   has_one :budget
   after_create :create_default_budget
+  has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
 
   private
 

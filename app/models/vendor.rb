@@ -26,6 +26,7 @@ class Vendor < ApplicationRecord
     'Hair stylists'
 
   ]
+  has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
   def self.ransackable_attributes(auth_object = nil)
     %w[username category]
   end

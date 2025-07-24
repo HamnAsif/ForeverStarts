@@ -1,0 +1,14 @@
+
+<h2 class="text-2xl font-bold mt-8 mb-4">Notifications</h2>
+<p>Total notifications: <%= @couple.notifications.count %></p>
+
+<div class="space-y-4 mt-6">
+  <% @couple.notifications.order(created_at: :desc).each do |notification| %>
+    <% url = notification.params[:url].presence || "#" %>
+    <%= link_to url, class: "block" do %>
+      <div class="bg-red-100 rounded-md p-2 <%= 'opacity-80' unless notification.read? %> ">
+        <p class="text-gray-800 text-md hover:text-red-400 hover:underline transition mb-2"><%= notification.params[:message] %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

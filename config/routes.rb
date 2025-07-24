@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get 'sign_up', to: 'registrations#new'
     post 'sign_up', to: 'registrations#create'
     get 'dashboard', to: 'dashboard#show'
+    get 'notifications', to: 'notifications#index'
     get 'inspiration', to: 'inspirations#show'
     resource :budget, only: [:show, :update]
 
@@ -51,10 +52,6 @@ Rails.application.routes.draw do
       end
     end
 
-    
-
-    
-
   end
   
 
@@ -80,7 +77,7 @@ Rails.application.routes.draw do
       end
     end
     
-
+    get 'notifications', to: 'notifications#index'
 
   end
 end
