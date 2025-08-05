@@ -8,6 +8,9 @@ class Couple < ApplicationRecord
   after_create :create_default_budget
   has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
 
+   def self.ransackable_attributes(auth_object = nil)
+    %w[id bride_name groom_name created_at updated_at]
+  end
   private
 
   def create_default_budget

@@ -1,5 +1,5 @@
 
-<div class="bg-gray-100">
+<div class="bg-gray-100" id = "home">
   <header class="flex justify-between items-center px-6 py-4 border-b">
     <div class="flex-auto space-x-0">
       <span class="text-4xl font-serif font-bold text-red-300">FS</span>
@@ -8,9 +8,9 @@
     
     <nav class="space-x-10 text-black font-medium">
     <div class="flex flex-row justify-end-safe space-x-10">
-      <a href="#" class="hover:text-red-300">Home</a>
-      <a href="#" class="hover:text-red-300">About</a>
-      <a href="#" class="hover:text-red-300">Services</a>
+      <a href="#home" class="hover:text-red-300">Home</a>
+      <a href="#about" class="hover:text-red-300">About</a>
+      <a href="#services" class="hover:text-red-300">Services</a>
       <a href="<%= new_user_session_path %>" class="hover:text-red-300">Login</a>
       <a href="<%= couples_sign_up_path %>" class="hover:text-red-300">For Couples</a>
       <a href="<%= vendors_sign_up_path %>" class="hover:text-red-300">For Vendors</a>
@@ -24,45 +24,102 @@
     <%= image_tag "landingpage.jpg", class: "h-auto max-w-full", alt: "Landing image" %>
     </div>
     
-    <div class="text-center py-12">
-    <h2 class="text-4xl font-serif font-bold text-black mb-12">
-      Why We Are Here
-    </h2>
+    <div class="text-center py-12 " id ="about">
+      <h2 class="text-4xl font-serif font-bold text-black mb-6">
+        Why ForeverStarts Exists
+      </h2>
     </div>
-    
-    <div class="flex gap-20 w-full ">
 
-      <div class ="bg-white">
+    <div class = "flex flex-row justify-between mb-4">
+      <div class = "bg-red-100">
         <%= image_tag "block1.jpg", class: "h-[600px] w-[420px]", alt: "block1" %>
       </div>
-      <div class="bg-red-200 h-[600px] w-[496px]">
-        <span class="text-4xl font-serif font-bold text-bkack flex items-center justify-center pt-60">FS</span>
-        <span class = "text-2xl flex items-center justify-center pt-7 pb-7">DESTINATION WEDDING PLANNING</span>
-        <span class="text-lg text-center font-serif text-gray-600">Plan your dream wedding effortlessly with Forever Starts your all-in-one wedding planner. From budget tracking to vendor booking and guest lists, we help you stay organized, inspired, and stress-free every step of the way.</span>
+      <div class = "bg-red-100">
+        <div class="bg-red-200 h-[600px] w-[496px]">
+          <div class = "flex flex-col justify-center items-center">
+            <span class="text-4xl font-serif font-bold text-black pt-60">FS</span>
+            <span class = "text-2xl mt-10">DESTINATION WEDDING PLANNING</span>
+            <span class="text-lg text-center font-serif text-gray-600 px-6 mt-4">Plan your dream wedding effortlessly with Forever Starts your all-in-one wedding planner. From budget tracking to vendor booking and guest lists, we help you stay organized, inspired, and stress-free every step of the way.</span>
+          </div>
+        </div>
       </div>
-      <div class="bg-white">
+      <div class = "bg-red-100">
         <%= image_tag "block3.jpg", class: "h-[600px] w-[420px]", alt: "block1" %>
       </div>
-
     </div>
+    
+    
 
-    <div class="text-center py-10">
-    <h2 class="text-4xl font-serif font-bold text-black mb-10">
-      SERVICES
-    </h2>
-    <span>Planning a wedding can be overwhelming — but it doesn’t have to be. Our curated services cover everything you need for the perfect celebration, all in one place.</span>
-    </div>
-     <div class="flex gap-18 w-full ">
+      <div class="text-center my-20" id ="services">
+        <h2 class="text-4xl font-serif font-bold text-black mb-4">
+          Your Wedding Planning Toolkit
+        </h2>
+        <span class = "text-lg">Planning a wedding can be overwhelming — but it doesn’t have to be. Our curated services cover everything you need for the perfect celebration, all in one place.</span>
+      </div>
+      <div class="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        <div class = "flex flex-col justify-between">
+            <div class="w-full aspect-square overflow-hidden rounded">
+              <%= image_tag "vendor_booking.jpg", class: "object-cover w-full h-full" %>
+            </div>
+            <div class="mt-2 text-sm font-medium text-gray-800 text-center">
+              <span> Vendor Booking - Explore and book trusted makeup artists, photographers, and more.</span>
+            </div>
+        </div>
+            
+        <div class = "flex flex-col justify-center">
+            <div class="w-full aspect-square overflow-hidden rounded">
+              <%= image_tag "budget_calculator.jpg", class: "object-cover w-full h-full" %>
+            </div>
+            <div class="mt-2 text-sm font-medium text-gray-800 text-center">
+              <span> Budget Calculator - Plan your wedding expenses and track your spendings. </span>
+            </div>
+        </div>
 
-      <div class ="bg-white">
-        <%= image_tag "block1.jpg", class: "h-[600px] w-[450px]", alt: "block1" %>
-      </div>
-      <div class="bg-red-200 h-[600px] w-[450px]">
-        <%= image_tag "catering1.jpg", class: "h-[600px] w-[450px]", alt: "block1" %>
-      </div>
-      <div class="bg-white">
-        <%= image_tag "block3.jpg", class: "h-[600px] w-[450px]", alt: "block1" %>
-      </div>
+        <div class = "flex flex-col justify-center">
+            <div class="w-full aspect-square overflow-hidden rounded">
+              <%= image_tag "guest_list.jpg", class: "object-cover w-full h-full" %>
+            </div>
+            <div class="mt-2 text-sm font-medium text-gray-800 text-center">
+              <span> Guest List Manager - Add guests to specific events and send them invitations. </span>
+            </div>
+        </div>
+
+        <div class = "flex flex-col justify-center">
+            <div class="w-full aspect-square overflow-hidden rounded">
+              <%= image_tag "wedding_checklist.jpg", class: "object-cover w-full h-full" %>
+            </div>
+            <div class="mt-2 text-sm font-medium text-gray-800 text-center">
+              <span> Wedding Checklist - Get a personalized wedding checklist to stay on track. </span>
+            </div>
+        </div>
+
+        <div class = "flex flex-col justify-center">
+            <div class="w-full aspect-square overflow-hidden rounded">
+              <%= image_tag "inspiration_gallery.jpg", class: "object-cover w-full h-full" %>
+            </div>
+            <div class="mt-2 text-sm font-medium text-gray-800 text-center">
+              <span> Inspiration Gallery - Browse wedding ideas for decor, dresses, and more. </span>
+            </div>
+        </div>
+
+        <div class = "flex flex-col justify-center">
+            <div class="w-full aspect-square overflow-hidden rounded">
+              <%= image_tag "wedding_card.jpg", class: "object-cover w-full h-full" %>
+            </div>
+            <div class="mt-2 text-sm font-medium text-gray-800 text-center">
+              <span> Digital Wedding Cards - Create stunning wedding invitations with templates and download them instantly. </span>
+            </div>
+        </div>
+
+        <div class = "flex flex-col justify-center">
+            <div class="w-full aspect-square overflow-hidden rounded">
+              <%= image_tag "rating.jpg", class: "object-cover w-full h-full" %>
+            </div>
+            <div class="mt-2 text-sm font-medium text-gray-800 text-center">
+              <span> Vendor Ratings & Review - Read honest reviews and rate your wedding vendors. </span>
+            </div>
+        </div>
+
 
     </div>
 </div>

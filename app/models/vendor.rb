@@ -28,8 +28,9 @@ class Vendor < ApplicationRecord
   ]
   has_many :notifications, as: :recipient, class_name: "Noticed::Notification", dependent: :destroy
   def self.ransackable_attributes(auth_object = nil)
-    %w[username category]
+    %w[id username category created_at updated_at contact location description]
   end
+
   has_many :services
   has_many :appointments, through: :services
 
